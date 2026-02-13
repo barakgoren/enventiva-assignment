@@ -1,15 +1,16 @@
 import React from "react";
 import { Card, CardContent } from "components/ui/card";
-import { Artist } from "types";
+import { SerializedArtist } from "types";
 
 type ArtistCardProps = {
-  artist: Artist;
-  onSeeMore?: (artist: Artist) => void;
+  artist: SerializedArtist;
+  onSeeMore?: (artist: SerializedArtist) => void;
 };
 
 export function ArtistCard({ artist, onSeeMore }: ArtistCardProps) {
-  const image = artist.strArtistThumb || artist.strArtistBanner || artist.strArtistFanart;
-  const fallbackInitial = artist.strArtist.charAt(0).toUpperCase();
+  const image =
+    artist.images.thumb || artist.images.banner || artist.images.fanart || null;
+  const fallbackInitial = artist.name.charAt(0).toUpperCase();
 
   return (
     <Card className="card-hover group relative flex h-full flex-col overflow-hidden transition-all duration-150">
@@ -17,7 +18,7 @@ export function ArtistCard({ artist, onSeeMore }: ArtistCardProps) {
         {image ? (
           <img
             src={image}
-            alt={artist.strArtist}
+            alt={artist.name}
             className="h-full w-full object-cover"
           />
         ) : (
@@ -25,33 +26,36 @@ export function ArtistCard({ artist, onSeeMore }: ArtistCardProps) {
             {fallbackInitial}
           </div>
         )}
-        {artist.strGenre && (
+        {artist.genre && (
           <span className="absolute left-3 top-3 rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-secondary-foreground shadow">
-            {artist.strGenre}
+            {artist.genre}
           </span>
         )}
       </div>
 
       <CardContent className="flex flex-1 flex-col gap-3 p-4">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="text-lg font-semibold text-foreground">{artist.strArtist}</h3>
-          {artist.strCountry && (
+          <h3 className="text-lg font-semibold text-foreground">
+            {artist.name}
+          </h3>
+          {artist.country && (
             <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-              {artist.strCountry}
+              {artist.country}
             </span>
           )}
         </div>
 
         <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
-          {artist.intFormedYear && (
-            <span className="rounded-full border border-border/80 px-3 py-1">Since {artist.intFormedYear}</span>
+          {artist && (
+            <span className="rounded-full border border-border/80 px-3 py-1">
+              Since {artist.formedYear}
+            </span>
           )}
         </div>
 
         <p className="text-sm text-muted-foreground">
-          {truncate(artist.strBiographyEN ?? "Biography not available yet.", 220)}
+          {truncate(artist.bio.en ?? "Biography not available yet.", 220)}
         </p>
-
       </CardContent>
 
       <button

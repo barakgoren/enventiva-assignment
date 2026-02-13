@@ -2,19 +2,18 @@ import React, { useMemo, useState } from "react";
 import { SearchFormCard } from "components/SearchFormCard";
 import { SearchResultsSection } from "components/SearchResultsSection";
 import { useArtistsSearch } from "hooks/useArtistsSearch";
-import { Artist } from "types";
 
 export default function SearchPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [query, setQuery] = useState("");
 
-  const { data, isLoading, isFetching, isError, error } =
-    useArtistsSearch(query);
-
-  const artists = useMemo(() => {
-    if (!data || !data.artists) return [];
-    return data.artists as Artist[];
-  }, [data]);
+  const {
+    data: artists,
+    isLoading,
+    isFetching,
+    isError,
+    error,
+  } = useArtistsSearch(query);
 
   const errorMessage = useMemo(() => {
     if (!isError) return null;

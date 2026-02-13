@@ -1,11 +1,12 @@
 import React from "react";
-import { Artist } from "types";
+import { SerializedArtist } from "types";
 import { ArtistCard } from "components/ArtistCard";
 import { ArtistSkeletonGrid } from "components/ArtistSkeletonGrid";
 import { Card } from "components/ui/card";
+import { useNavigate } from "react-router-dom";
 
 type SearchResultsSectionProps = {
-  artists: Artist[];
+  artists?: SerializedArtist[];
   query: string;
   isFetching: boolean;
   errorMessage: string | null;
@@ -17,14 +18,16 @@ export function SearchResultsSection({
   isFetching,
   errorMessage,
 }: SearchResultsSectionProps) {
-  const hasResults = artists.length > 0;
+  const nav = useNavigate();
+  const hasResults = artists && artists.length > 0;
 
   return (
     <section className="space-y-4">
       {!!query && (
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           <span>
-            Showing results for <span className="font-semibold text-foreground">{query}</span>
+            Showing results for{" "}
+            <span className="font-semibold text-foreground">{query}</span>
           </span>
           {isFetching && <span className="animate-pulse">Updating...</span>}
         </div>
@@ -39,9 +42,12 @@ export function SearchResultsSection({
 
       {(!query || query.trim().length === 0) && (
         <Card className="bg-muted/50 text-center text-muted-foreground border-none shadow-none">
-          <p className="text-base font-medium text-foreground">Start exploring</p>
+          <p className="text-base font-medium text-foreground">
+            Start exploring
+          </p>
           <p className="text-sm">
-            Search for an artist to see cards with their image, genre, country and biography preview.
+            Search for an artist to see cards with their image, genre, country
+            and biography preview.
           </p>
         </Card>
       )}
@@ -51,15 +57,25 @@ export function SearchResultsSection({
       {!isFetching && hasResults && (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {artists.map((artist) => (
-            <ArtistCard key={artist.idArtist} artist={artist} />
+            <ArtistCard
+              key={artist.id}
+              artist={artist}
+              onSeeMore={() => {
+                nav(`/artist/${artist.id}`);
+              }}
+            />
           ))}
         </div>
       )}
 
       {!isFetching && !hasResults && !errorMessage && !!query && (
         <Card className="bg-muted/50 text-center text-muted-foreground border-none shadow-none">
-          <p className="text-base font-medium text-foreground">No artists found</p>
-          <p className="text-sm">Try a different spelling or another artist name.</p>
+          <p className="text-base font-medium text-foreground">
+            No artists found
+          </p>
+          <p className="text-sm">
+            Try a different spelling or another artist name.
+          </p>
         </Card>
       )}
     </section>
