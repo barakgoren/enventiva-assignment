@@ -1,46 +1,57 @@
-# Getting Started with Create React App
+## Enventiva Artist Explorer
+[![Live on Render](https://img.shields.io/badge/Live_on_Render-16a34a?logo=render&logoColor=white)](https://music.barak-dev.com)
+[![wakatime](https://wakatime.com/badge/user/5cc5ec80-a806-4ca2-a704-db29274e48cd/project/e618c5e5-7a2f-4c74-b16c-7e4147a8e50b.svg)](https://wakatime.com/badge/user/5cc5ec80-a806-4ca2-a704-db29274e48cd/project/e618c5e5-7a2f-4c74-b16c-7e4147a8e50b)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A small React app that searches artists via TheAudioDB, shows their bios, and lists top tracks with a polished UI. Built with React Router and TanStack Query for data fetching/caching and styled with Tailwind.
 
-## Available Scripts
+### Features
+- Search for artists and view paginated-style cards of results.
+- Drill into an artist page for hero imagery, genre/country/formed-year pills, multilingual biography (where available), and top 10 tracks.
+- Language toggle for bios (EN/DE/FR/ES/PT/IT/JP/CN/RU/HE when provided by the API).
+- React Query caching with devtools, client-side routing, and a `/theme` route that showcases the design system components.
 
-In the project directory, you can run:
+### Tech Stack
+- React 18 with TypeScript and React Router v6
+- TanStack Query for fetching/caching against TheAudioDB (`https://www.theaudiodb.com/api/v1/json/123` demo key)
+- Tailwind CSS with shadcn-style UI primitives and lucide icons
 
-### `npm start`
+### Running Locally (from GitHub)
+1) Prerequisites: Node 18+ and npm.
+2) Clone:
+	```sh
+	git clone https://github.com/barakgoren/enventiva-assignment.git
+	cd enventiva-assignment
+	```
+3) Install deps:
+	```sh
+	npm install
+	```
+4) Start dev server:
+	```sh
+	npm start
+	```
+	- Opens on `http://localhost:3000` with hot reload.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### App Tour
+- Landing `/`: type an artist name and submit to fetch matches; loading and empty states are handled.
+- Artist page `/artist/:id`: click a result to view biography, select a language, and browse the top tracks list with skeleton fallbacks and error-safe defaults.
+- Theme demo `/theme`: quick look at the base UI components.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Scripts
+```sh
+# run the dev server with live reload
+npm start
 
-### `npm test`
+# run the CRA test runner in watch mode
+npm test
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# production build to build/
+npm run build
 
-### `npm run build`
+# expose CRA config (one-way)
+npm run eject
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Notes
+- TheAudioDB demo key is hardcoded; no extra env setup is required for local runs.
+- If API rate limits occur, wait a moment and retry the search.
