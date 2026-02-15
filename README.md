@@ -1,6 +1,5 @@
 ## Enventiva Artist Explorer
 [![Live on Render](https://img.shields.io/badge/Live_on_Render-16a34a?logo=render&logoColor=white)](https://music.barak-dev.com)
-[![wakatime](https://wakatime.com/badge/user/5cc5ec80-a806-4ca2-a704-db29274e48cd/project/e618c5e5-7a2f-4c74-b16c-7e4147a8e50b.svg)](https://wakatime.com/badge/user/5cc5ec80-a806-4ca2-a704-db29274e48cd/project/e618c5e5-7a2f-4c74-b16c-7e4147a8e50b)
 
 A small React app that searches artists via TheAudioDB, shows their bios, and lists top tracks with a polished UI. Built with React Router and TanStack Query for data fetching/caching and styled with Tailwind.
 
